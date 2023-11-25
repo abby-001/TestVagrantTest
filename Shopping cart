@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct basket
+{
+    /* data */
+     
+    string product;
+    double Unit_prices_in_rs;
+    double gst;
+    int quantity;
+
+};
+double determineGST(const basket& product) {
+    return (product.Unit_prices_in_rs * product.gst) / 100.0;
+}
+int main() {
+    vector<basket> bask_et = {
+        {"Leather wallet", 1100, 18, 1},
+        {"Umbrella", 900, 12, 4},
+        {"Cigarette", 200, 28, 3},
+        {"Honey", 100, 0, 2}
+    };
+    double totalAmount = 0;
+    string maxGSTProduct;
+    double maxGSTAmount = 0;
+
+ for (const auto& basket:bask_et) {
+   double disc_price=0;
+    if(basket.Unit_prices_in_rs>=500.0)
+        {
+           disc_price =basket.Unit_prices_in_rs*0.95;
+           
+        }
+
+        double gstAmount = determineGST(basket);
+        totalAmount += ((basket.Unit_prices_in_rs  + gstAmount)* basket.quantity);
+
+        if (gstAmount > maxGSTAmount) {
+            maxGSTAmount = gstAmount;
+            maxGSTProduct = basket.product;
+        }
+        
+    }
+cout << "Total Amount to be paid to the customer: " << totalAmount <<endl;
+    cout << "Product with Maximum GST Amount in the basket: " << maxGSTProduct <<endl;
+
+    return 0;
+}
